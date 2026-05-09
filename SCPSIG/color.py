@@ -81,54 +81,37 @@ class Color:
             255 - self.b,
         )
 
+    ### Static methods for the class ###
+    
+    @staticmethod
+    def vector(r: float, g: float, b: float, a: float = 1):
+        """
+        Creates a color following the color vertex convention. (aka: each color is a value between 0 and 1)
+        :param r: The red value.
+        :param g: The green value.
+        :param b: The blue value.
+        :param a: The alpha value. (set to 1 by default, which is completely opaque)
+        :return: 
+        """
+        return Color(
+            r * 255,
+            g * 255,
+            b * 255,
+            a * 255
+        )
 
-### Static methods for the class ###
-def vector(r: float, g: float, b: float, a: float = 1):
-    """
-    Creates a color following the color vertex convention. (aka: each color is a value between 0 and 1)
-    :param r: The red value.
-    :param g: The green value.
-    :param b: The blue value.
-    :param a: The alpha value. (set to 1 by default, which is completely opaque)
-    :return: 
-    """
-
-    return Color(
-        r * 255,
-        g * 255,
-        b * 255,
-        a * 255
-    )
-
-
-### Color constants ###
-
-# Transparent pixel (alongside a transparency scale)
-TRANSPARENT = Color(255, 255, 255, 0)
-
-TRANSPARENT_100 = TRANSPARENT
-TRANSPARENT_75 = Color(255, 255, 255, 64)
-TRANSPARENT_50 = Color(255, 255, 255, 127)
-TRANSPARENT_25 = Color(255, 255, 255, 191)
-
-# Monochrome scales
-BLACK = Color(0, 0, 0)
-WHITE = Color(255, 255, 255)
-GRAY = Color(127, 127, 127)
-
-SHADE_0 = BLACK
-SHADE_25 = Color(64, 64, 64)
-SHADE_50 = GRAY
-SHADE_75 = Color(191, 191, 191)
-SHADE_100 = WHITE
-
-# RGB & CMY primitives
-RED = Color(255, 0, 0)
-GREEN = Color(0, 255, 0)
-BLUE = Color(0, 0, 255)
-
-MAGENTA = Color(255, 0, 255)
-CYAN = Color(0, 255, 255)
-YELLOW = Color(255, 255, 0)
-
-# Other known colors
+    @staticmethod
+    def lerp(start: Color, end: Color, alpha: float) -> Color:
+        """
+        Returns a color within the linear interpolation of two colors.
+        :param start: The initial color.
+        :param end: The target color.
+        :param alpha: The alpha interpolation value, between 0.0 and 1.0. (0.0 returns the initial color, 1.0 returns the target color)
+        :return: The interpolated color.
+        """
+        return Color(
+            start.r * (1 - alpha) + end.r * alpha,
+            start.g * (1 - alpha) + end.g * alpha,
+            start.b * (1 - alpha) + end.b * alpha,
+            start.a * (1 - alpha) + end.a * alpha
+        )
